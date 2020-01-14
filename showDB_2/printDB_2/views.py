@@ -20,9 +20,12 @@ def index(request):
     cursor=db.cursor()
     cursor.execute('SELECT * FROM teste_3 ORDER BY id DESC LIMIT 1')
     lat = [row[2] for row in cursor.fetchall()]
+    cursor.execute('SELECT * FROM teste_3 ORDER BY id DESC LIMIT 1')
+    lon = [row[3] for row in cursor.fetchall()]
     lat_i = int(lat[0])
+    lon_i = int(lon[0])
     db.close()
-    context = {'lat_i': lat_i}
+    context = {'lat_i': lat_i, 'lon_i': lon_i}
 #    return HttpResponse(lat_i)
     return render(request, 'printDB_2/index.html', context)
     

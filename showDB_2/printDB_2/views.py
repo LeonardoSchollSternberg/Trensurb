@@ -16,24 +16,15 @@ class IndexView(TemplateView):
         return teste_2.objects.all()
 '''
 def index(request):
-    
-
-#    args={}
-#    data = Mymodel.objects.all()
-#    args['data'] = data
-#    return render(request, 'index.html', args)
-
     db = mysql.connector.connect(host="localhost",user="root",password="password",auth_plugin='mysql_native_password',database="Giraffe")
     cursor=db.cursor()
-    cursor.execute('SELECT * FROM teste_3')
-    mensagem = [row[2] for row in cursor.fetchall()]
+    cursor.execute('SELECT * FROM teste_3 ORDER BY id DESC LIMIT 1')
+    lat = [row[2] for row in cursor.fetchall()]
+    lat_i = int(lat[0])
     db.close()
-    return HttpResponse(mensagem)
-#    return render(request, 'index.html', {'msg': mensagem})
+    context = {'lat_i': lat_i}
+#    return HttpResponse(lat_i)
+    return render(request, 'printDB_2/index.html', context)
     
 #    query_results = teste_3.objects.all()
 #    return query_results
-'''
-def index(request):
-    return HttpResponse("batata")
-'''

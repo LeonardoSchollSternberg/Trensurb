@@ -19,7 +19,7 @@ sqlform = "INSERT INTO teste_3 (message) VALUES (%s)"
 
 while cont:
     data, addr = sock.recvfrom(1024) # buffer size de 1024 bytes
-    print("received message:", data)
+    print ("received message:", data)
     if(data == b'apagar'):  #apaga a tabela e cria uma outra
         mycursor.execute("DROP TABLE teste_3")
         mycursor.execute("CREATE TABLE teste_3 (id INT PRIMARY KEY AUTO_INCREMENT, criado_em TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP(3), message VARCHAR(100))")

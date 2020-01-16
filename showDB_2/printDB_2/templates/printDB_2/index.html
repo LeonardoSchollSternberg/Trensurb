@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,13 +13,26 @@
 <body>
         <div id ="map"></div>
     <script>
-        var map = L.map('map').setView([-30.0277, -51.2287], 2);
+        var map = L.map('map').setView([-30.0277, -51.2287], 5 );
 
         L.tileLayer('https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=kH2IjPbi3ctdt1zKKSQL', {
             attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
         }).addTo(map)
-        var marker = L.marker([{{ lat_i }}, {{ lon_i }} ]).addTo(map);
+        function updateMarker() {
+            if (!marker1) {
+                var marker1 = L.marker([{{ lat_i }}, {{ lon_i }} ]).addTo(map);
+                marker1.bindPopup("<b> Oi! Serei um futuro trem :)"+"<dl>"+"Tenho latitude {{ lat_i }} e longitude {{ lon_i }}!").openPopup();
+            }
+            marker1.setLatLng([{{lat_i}},{{lon_i}}]).update();
+            setTimeout(updateMarker, 1000);
+        }
+        updateMarker();
+        
+    //function createMarker(latitude, longitude,popupContent){
+    //    L.marker([latitude,longitude]).addTo(map).bindPopup(popupContent).openPopup();
+    //}
+//
+//    createMarker({{lat_i}},{{lon_i}},"<b> Oi! Serei um futuro trem :)"+"<dl>"+"Tenho latitude {{ lat_i }} e longitude {{ lon_i }}!")
     </script>
-
 </body>
 </html>

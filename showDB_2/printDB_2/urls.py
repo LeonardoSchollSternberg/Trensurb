@@ -2,6 +2,7 @@ from django.urls import path
 
 from . import views
 
+app_name = 'printDB_2'
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('', views.batata, name='index'),
 ]
